@@ -1,0 +1,28 @@
+<launch>
+    
+    <!--- Sim Time -->
+    <param name="/use_sim_time" value="true" />
+
+    <node pkg="tf" type="static_transform_publisher" name="camera_init_to_map"  args="0 0 0 0 0 0 map odom 10" />
+
+    <!--- Lidar Odometry -->    
+     <node pkg="traversability_mapping" type="imageProjection"    name="imageProjection"    output="screen"> 
+            <remap from="/velodyne_points" to="/spot/velodyne_points" /> 
+            <remap from="/imu/data" to="/spot/vectornav/IMU" /> 
+        </node> 
+    
+
+    <!--- Run Rviz (launch-prefix="nice" for lower cpu usage)-->
+    <node pkg="rviz" type="rviz" name="rviz" output="log" args="-d $(find traversability_mapping)/launch/include/traversability_mapping.rviz" />
+    
+    <!--- Run Traversability Mapping -->    
+    <node pkg="traversability_mapping" type="traversability_filter"  name="traversability_filter"  output="screen">
+            <remap from="/velodyne_points" to="/spot/velodyne_points" />
+        </node>
+    <node pkg="traversability_mapping" type="traversability_map"     name="traversability_map"     output="screen">
+            <remap from="/velodyne_points" to="/spot/velodyne_points" />
+        </node>
+    <!-- <node pkg="traversability_mapping" type="traversability_path"    name="traversability_path"    output="screen"/> -->
+
+
+</launch>
