@@ -1,6 +1,6 @@
 # Traversability Mapping and Motion Planning
 
-![](https://github.com/LTU-RAI/traversability_mapping/blob/main/Screenshot_20220520_110925.png)
+This is a modified version of the original traversability_mapping that can be found [here](https://github.com/TixiaoShan/traversability_mapping).
 
 This repository contains code for a traversability mapping and motion planning system for ROS compatible UGVs. The system takes in point cloud from a Velodyne VLP-16 Lidar and outputs a traversability map for autonomous navigation in real-time. A demonstration of the system can be found here -> https://www.youtube.com/watch?v=4pdBpeRGXmw
 
@@ -35,7 +35,7 @@ roslaunch traversability_mapping offline.launch
 2. Play existing bag files:
 
 ```
-rosbag play *.bag --clock --topic /velodyne_points /imu/data
+rosbag play *.bag --clock
 ```
 
 Notes: our system only needs /velodyne_points for input from bag files. However, a 3D SLAM method usually needs /imu/data.
