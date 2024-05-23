@@ -147,14 +147,14 @@ public:
 
     bool transformCloud(){
         // Listen to the TF transform and prepare for point cloud transformation
-        try{listener.lookupTransform("map","base_link", ros::Time(0), transform); }
+        try{listener.lookupTransform("map","spot/base_link", ros::Time(0), transform); }
         catch (tf::TransformException ex){ /*ROS_ERROR("Transfrom Failure.");*/ return false; }
 
         robotPoint.x = transform.getOrigin().x();
         robotPoint.y = transform.getOrigin().y();
         robotPoint.z = transform.getOrigin().z();
 
-        laserCloudIn->header.frame_id = "base_link";
+        laserCloudIn->header.frame_id = "spot/base_link";
         laserCloudIn->header.stamp = 0; // don't use the latest time, we don't have that transform in the queue yet
 
         pcl::PointCloud<PointType> laserCloudTemp;
@@ -513,14 +513,14 @@ public:
 
     void updateLaserScan(){
 
-        try{listener.lookupTransform("base_link","map", ros::Time(0), transform);}
+        try{listener.lookupTransform("spot/base_link","map", ros::Time(0), transform);}
         catch (tf::TransformException ex){ /*ROS_ERROR("Transfrom Failure.");*/ return; }
 
         laserCloudObstacles->header.frame_id = "map";
         laserCloudObstacles->header.stamp = 0;
-        // transform obstacle cloud back to "base_link" frame
+        // transform obstacle cloud back to "spot/base_link" frame
         pcl::PointCloud<PointType> laserCloudTemp;
-        pcl_ros::transformPointCloud("base_link", *laserCloudObstacles, laserCloudTemp, listener);
+        pcl_ros::transformPointCloud("spot/base_link", *laserCloudObstacles, laserCloudTemp, listener);
         //convert point to scan
         int cloudSize = laserCloudTemp.points.size();
         for (int i = 0; i < cloudSize; ++i){
@@ -537,7 +537,7 @@ public:
 
     void pointcloud2laserscanInitialization(){
 
-        laserScan.header.frame_id = "base_link"; // assume laser has the same frame as the robot
+        laserScan.header.frame_id = "spot/base_link"; // assume laser has the same frame as the robot
 
         laserScan.angle_min = -M_PI;
         laserScan.angle_max =  M_PI;

@@ -407,7 +407,7 @@ public:
         occupancyMap2DHeight.occupancy.header.stamp = occupancyMap2DHeight.header.stamp;
         occupancyMap2DHeight.occupancy.info.origin.position.x = localMapOriginPoint.x;
         occupancyMap2DHeight.occupancy.info.origin.position.y = localMapOriginPoint.y;
-        occupancyMap2DHeight.occupancy.info.origin.position.z = localMapOriginPoint.z + 10; // add 10, just for visualization
+        occupancyMap2DHeight.occupancy.info.origin.position.z = localMapOriginPoint.z; // + 10; // add 10, just for visualization
 
         // extract all info
         for (int i = 0; i < localMapArrayLength; ++i){
@@ -463,7 +463,7 @@ public:
     }    
 
     bool getRobotPosition(){
-        try{listener.lookupTransform("map","base_link", ros::Time(0), transform); } 
+        try{listener.lookupTransform("map","spot/base_link", ros::Time(0), transform); } 
         catch (tf::TransformException ex){ ROS_ERROR("Transfrom Failure."); return false; }
 
         robotPoint.x = transform.getOrigin().x();

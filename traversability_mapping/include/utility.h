@@ -77,7 +77,7 @@ extern const int N_SCAN = 16;
 extern const int Horizon_SCAN = 1800;
 
 // Map Params
-extern const float mapResolution = 0.4; // map resolution
+extern const float mapResolution = 0.1; // map resolution
 extern const float mapCubeLength = 4.0; // the length of a sub-map (meters)
 extern const int mapCubeArrayLength = mapCubeLength / mapResolution; // the grid dimension of a sub-map (mapCubeLength / mapResolution)
 extern const int mapArrayLength = 2000 / mapCubeLength; // the sub-map dimension of global map (2000m x 2000m)
@@ -107,7 +107,7 @@ extern const float large_log_odds = 100;
 extern const float max_log_odds_for_belief = 20;
 
 // 2D Map Publish Params
-extern const int localMapLength = 200; // length of the local occupancy grid map (meter)
+extern const int localMapLength = 50; // length of the local occupancy grid map (meter)
 extern const int localMapArrayLength = localMapLength / mapResolution;
 
 // Visualization Params
